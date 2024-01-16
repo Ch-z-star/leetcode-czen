@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 9、回文数
@@ -81,20 +82,62 @@ public class IsPalindrome {
 
     /**
      * 解法三：反转整个数字进行比较，如果和其原来相等，则为回文数
+     * 需要考虑整数溢出问题
      */
     public static boolean isPalindrome3(Integer x) {
-
-        return true;
+        if (x < 0 || (x % 10 == 0 && x != 0))
+            return false;
+        int revertNum = 0;
+        int temp = x;
+        while (x != 0) {
+            revertNum = revertNum * 10 + x % 10;
+            x /= 10;
+        }
+        if (temp == revertNum) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * 解法四：入栈，依次和原数字比较，也只需要比较一半的数字
      */
+    public static boolean isPalindrome4(Integer x) {
+        if (x < 0 || (x != 0 && x % 10 == 0)) {
+            return false;
+        }
+        Stack<Integer> stack = new Stack<>();
+
+        return true;
+    }
+
     /**
-     * 解法五：转换为字符串，采用双指针头尾遍历
+     * 解法五：转换为字符串，头尾字符进行比较
      */
+    public static boolean isPalindrome5(Integer x) {
+        if (x < 0 || (x != 0 && x % 10 == 0)) {
+            return false;
+        }
+        String str = Integer.toString(x);
+        int len = str.length();
+        for (int i = 0; i < len / 2 ; i++) {
+            if (str.charAt(i) != str.charAt(len - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * 解法六：数学解法，每次取数字的头和尾进行比较，比较完一次后去掉头和尾
      */
+    public static boolean isPalindrome6(Integer x) {
+        if (x < 0 || (x != 0 && x % 10 != 0)) {
+            return false;
+        }
+
+
+        return true;
+    }
 
 }
