@@ -20,7 +20,6 @@ public class IsPalindrome {
      *
      * @param arr       测试数组参数
      * @param funcIndex 调用的函数下标后缀
-     * @return
      */
     public static boolean isPalindrome(int[] arr, String funcIndex) {
         Class clazz = IsPalindrome.class;
@@ -41,7 +40,7 @@ public class IsPalindrome {
     }
 
     /**
-     * 判断一个整数是不是回文数，基础解法，存入数组遍历比较
+     * 判断一个整数是不是回文数，基础解法，存入数组遍历比较 147ms 5%
      *
      * @param x 整数
      * @return boolean
@@ -66,6 +65,7 @@ public class IsPalindrome {
      * 1、所有负数都不可能是回文
      * 2、个位数为 0 的数字不可能是回文
      * 3、反转的过程中，当原始数字小于或等于反转后的数字时，意味着已经处理了一半的数字了
+     * 5ms 98%
      */
     public static boolean isPalindrome2(Integer x) {
         if (x < 0 || (x % 10 == 0 && x != 0)) {
@@ -82,10 +82,10 @@ public class IsPalindrome {
 
     /**
      * 解法三：反转整个数字进行比较，如果和其原来相等，则为回文数
-     * 需要考虑整数溢出问题
+     * 需要考虑整数溢出问题 8ms 18%
      */
     public static boolean isPalindrome3(Integer x) {
-        if (x < 0 || (x % 10 == 0 && x != 0))
+        if (x < 0)
             return false;
         int revertNum = 0;
         int temp = x;
@@ -93,26 +93,34 @@ public class IsPalindrome {
             revertNum = revertNum * 10 + x % 10;
             x /= 10;
         }
-        if (temp == revertNum) {
-            return true;
-        }
-        return false;
+        return temp == revertNum;
     }
 
     /**
-     * 解法四：入栈，依次和原数字比较，也只需要比较一半的数字
+     * 解法四：入栈，依次和原数字比较，也只需要比较一半的数字 19ms 5%
      */
     public static boolean isPalindrome4(Integer x) {
         if (x < 0 || (x != 0 && x % 10 == 0)) {
             return false;
         }
+        int temp = x;
         Stack<Integer> stack = new Stack<>();
-
+        while (x != 0) {
+            stack.add(x % 10);
+            x /= 10;
+        }
+        while (!stack.empty()) {
+            int compareNum = stack.pop();
+            if (compareNum != temp % 10) {
+                return false;
+            }
+            temp /= 10;
+        }
         return true;
     }
 
     /**
-     * 解法五：转换为字符串，头尾字符进行比较
+     * 解法五：转换为字符串，头尾字符进行比较 6ms 56%
      */
     public static boolean isPalindrome5(Integer x) {
         if (x < 0 || (x != 0 && x % 10 == 0)) {
@@ -120,23 +128,46 @@ public class IsPalindrome {
         }
         String str = Integer.toString(x);
         int len = str.length();
-        for (int i = 0; i < len / 2 ; i++) {
+        for (int i = 0; i < len / 2; i++) {
             if (str.charAt(i) != str.charAt(len - i - 1)) {
                 return false;
             }
         }
+        /**
+         * int left = 0, right = str.length() - 1;
+         * while(left < right) {
+         *  if(s.charAt(left) == s.charAt(right)) {
+         *          left++;
+         *          right--;
+         *      } else {
+         *          return false;
+         *      }
+         * }
+         * return true;
+         */
         return true;
     }
 
     /**
-     * 解法六：数学解法，每次取数字的头和尾进行比较，比较完一次后去掉头和尾
+     * 解法六：数学解法，每次取数字的头和尾进行比较，比较完一次后去掉头和尾 7ms 32%
      */
     public static boolean isPalindrome6(Integer x) {
-        if (x < 0 || (x != 0 && x % 10 != 0)) {
+        if (x < 0) {
             return false;
         }
-
-
+        int maxDivisor = 1;
+        // 一次遍历求该数字被 10 整除的最大除数
+        while (x / maxDivisor >= 10)
+            maxDivisor *= 10;
+        while (x > 0) {
+            int left = x / maxDivisor;
+            int right = x % 10;
+            if (left != right) {
+                return false;
+            }
+            x = (x % maxDivisor) / 10;
+            maxDivisor /= 100;
+        }
         return true;
     }
 
