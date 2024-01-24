@@ -64,8 +64,49 @@ public class RomanToInt {
     }
 
     /**
-     * 解法二：罗马数字的取数规则：若一个数字比它右边的数字小，则将其取反
+     * 解法二：罗马数字的取数规则：若一个数字比它右边的数字小，则将其取反 2ms 100%
      */
+    public static int romanToInt2(String s) {
+        int sum = 0;
+        int index = s.length() - 1;
+        char current, prev;
+        prev = s.charAt(index);
+        /**
+         * 从左往右取值，要求当前值比其右边值小时，当前值取反，
+         * 等价于：从右往左取，当前值比其左边值（上一个值）小时，当前值取反
+         */
+        while (index >= 0) {
+            current = s.charAt(index);
+            if(convertToInt(current) < convertToInt(prev)) {
+                sum -= convertToInt(current);
+            } else {
+                sum += convertToInt(current);
+            }
+            prev = current;
+            index--;
+        }
+        return sum;
+    }
+
+    public static int convertToInt(char c) {
+        switch (c) {
+            case 'I':
+                return 1;
+            case 'V':
+                return 5;
+            case 'X':
+                return 10;
+            case 'L':
+                return 50;
+            case 'C':
+                return 100;
+            case 'D':
+                return 500;
+            case 'M':
+                return 1000;
+        }
+        return 0;
+    }
 
     /**
      * 解法三：字符串中的特殊情况全部替换

@@ -23,4 +23,17 @@ public class RomanToIntTest {
         }
     }
 
+    @Test
+    public void test_func02() {
+        // test output
+        String showStr = "MCMXCIV";
+        System.out.println(RomanToInt.romanToInt2(showStr));
+        // test error
+        /*
+        String error = "III";
+        System.out.println(RomanToInt.convertToInt('I'));
+        */
+
+    }
+
 }
