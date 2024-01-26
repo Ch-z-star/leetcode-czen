@@ -33,7 +33,13 @@ public class RomanToIntTest {
         String error = "III";
         System.out.println(RomanToInt.convertToInt('I'));
         */
+    }
 
+    @Test
+    public void test_fun03() {
+        // test output
+        String showStr = "MCMXCIV";
+        System.out.println(RomanToInt.romanToInt3(showStr));
     }
 
 }

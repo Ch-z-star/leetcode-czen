@@ -29,6 +29,7 @@ public class RomanToInt {
 
     /**
      * 采用 p、q 分别记录字符串第一位和下一位的字符，判断 p + q 是否存在于 map 中 21ms 5%
+     *
      * @param s
      * @return
      */
@@ -74,10 +75,11 @@ public class RomanToInt {
         /**
          * 从左往右取值，要求当前值比其右边值小时，当前值取反，
          * 等价于：从右往左取，当前值比其左边值（上一个值）小时，当前值取反
+         * 如果从左往右取，需要注意 prev 数列开始时重复两次，最后结尾时，需要加上最后一个值
          */
         while (index >= 0) {
             current = s.charAt(index);
-            if(convertToInt(current) < convertToInt(prev)) {
+            if (convertToInt(current) < convertToInt(prev)) {
                 sum -= convertToInt(current);
             } else {
                 sum += convertToInt(current);
@@ -104,15 +106,44 @@ public class RomanToInt {
                 return 500;
             case 'M':
                 return 1000;
+            // special condition
+            case 'a':
+                return 4;
+            case 'b':
+                return 9;
+            case 'c':
+                return 40;
+            case 'd':
+                return 90;
+            case 'e':
+                return 400;
+            case 'f':
+                return 900;
         }
         return 0;
     }
 
+
     /**
-     * 解法三：字符串中的特殊情况全部替换
+     * 解法三：字符串中的特殊情况全部替换 14ms 5% | 4ms %8
      */
+    public static int romanToInt3(String s) {
+        s = replaceAllSpecialCharacter(s);
+        int sum = 0;
+        for (char c:s.toCharArray()) {
+            sum += convertToInt(c);
+        }
+        return sum;
+    }
 
-
-
-
+    private static String replaceAllSpecialCharacter(String s) {
+        // 链式写法耗时多 10ms
+        s = s.replace("IV", "a");
+        s = s.replace("IX", "b");
+        s = s.replace("XL", "c");
+        s = s.replace("XC", "d");
+        s = s.replace("CD", "e");
+        s = s.replace("CM", "f");
+        return s;
+    }
 }
