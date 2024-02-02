@@ -9,8 +9,8 @@ public class LongestCommonPrefixTest {
     private String[] test_error1 = {"a", "ab"};
     private String[] test_error2 = {"ab", "a"};
     private String[] test_error3 = {"a"};
-
     private String[] test_error4 = {"aaa", "aa", "aaa"};
+    private String[] test_error5 = {"abab", "aba", ""};
 
     @Test
     public void test_func01() {
@@ -22,5 +22,18 @@ public class LongestCommonPrefixTest {
         // System.out.println("the longest common prefix is:" + LongestCommonPrefix.longestCommonPrefix(test_arr));
         // System.out.println("the longest common prefix is:" + LongestCommonPrefix.longestCommonPrefix(test_nonCommon));
         System.out.println("the longest common prefix is:" + LongestCommonPrefix.longestCommonPrefix(test_error4));
+    }
+
+    @Test
+    public void test_func02() {
+        System.out.println("longest common prefix:" + LongestCommonPrefix.longestCommonPrefix2(null));
+        /*
+        String sub = "Hello".substring(0, 1);
+        System.out.println("sub is " + sub);
+         */
+
+
+
+
     }
 }
