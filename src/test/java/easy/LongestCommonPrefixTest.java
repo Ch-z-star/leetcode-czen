@@ -4,7 +4,7 @@ import com.czen.leetcode.easy.LongestCommonPrefix;
 import org.junit.Test;
 
 public class LongestCommonPrefixTest {
-    private String[] test_arr = {"flower", "flow", "flight"};
+    private String[] test_arr = {"flower", "flow", "flight", "flu", "flying"};
     private String[] test_nonCommon = {"dog", "race", "car"};
     private String[] test_error1 = {"a", "ab"};
     private String[] test_error2 = {"ab", "a"};
@@ -26,14 +26,17 @@ public class LongestCommonPrefixTest {
 
     @Test
     public void test_func02() {
-        System.out.println("longest common prefix:" + LongestCommonPrefix.longestCommonPrefix2(null));
+        System.out.println("longest common prefix:" + LongestCommonPrefix.longestCommonPrefix2(test_arr));
         /*
         String sub = "Hello".substring(0, 1);
         System.out.println("sub is " + sub);
          */
+    }
 
-
-
-
+    @Test
+    public void test_func03() {
+        // test basic foundation
+        System.out.println("longest common prefix:" +
+                LongestCommonPrefix.longestCommonPrefix3(test_arr));
     }
 }
